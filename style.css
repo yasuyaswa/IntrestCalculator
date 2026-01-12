@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.container {
+  width: 380px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.45);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.toggle {
+  display: flex;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.15);
+  margin-bottom: 16px;
+}
+
+.toggle button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.toggle .active {
+  background: #00ffd5;
+  color: #000;
+}
+
+.card {
+  background: rgba(0,0,0,0.35);
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.field {
+  flex: 1;
+}
+
+label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.calculate {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #00f260, #0575e6);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.result {
+  margin-top: 16px;
+  background: rgba(0,0,0,0.4);
+  padding: 16px;
+  border-radius: 16px;
+  animation: fadeUp 0.4s ease;
+}
+
+.total {
+  margin-top: 6px;
+  font-size: 18px;
+  color: #00ffd5;
+}
+
+.copy {
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #ffc107;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy.copied {
+  background: #00e676;
+  color: #000;
+}
+
+.copy.c
+.hidden {
+  display: none;
+}
+
+@keyframes fadeUp {
+  from { transform: translateY(15px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
