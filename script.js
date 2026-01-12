@@ -16,16 +16,34 @@ function toggleType(type) {
     : compoundBtn.classList.add("active");
 }
 
-// Indian number formatting
+// Indian number formatter
 function formatINR(num) {
-  return new Intl.NumberFormat("en-IN").format(Math.round(num));
+  return new Intl.NumberFormat("en-IN", {
+    maximumFractionDigits: 2
+  }).format(num);
 }
 
-// Live formatting for principal input
+// 🔒 Restrict principal input (numbers + dot only)
 principalInput.addEventListener("input", () => {
-  let value = principalInput.value.replace(/,/g, "");
-  if (!isNaN(value) && value !== "") {
-    principalInput.value = formatINR(value);
+  let raw = principalInput.value;
+
+  // Remove invalid characters
+  raw = raw.replace(/[^0-9.]/g, "");
+
+  // Prevent multiple dots
+  const parts = raw.split(".");
+  if (parts.length > 2) {
+    raw = parts[0] + "." + parts.slice(1).join("");
+  }
+
+  if (raw === "") {
+    principalInput.value = "";
+    return;
+  }
+
+  const number = Number(raw);
+  if (!isNaN(number)) {
+    principalInput.value = formatINR(number);
   }
 });
 
