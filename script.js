@@ -16,36 +16,33 @@ function toggleType(type) {
     : compoundBtn.classList.add("active");
 }
 
-// Indian number formatter
+// Indian number format
 function formatINR(num) {
   return new Intl.NumberFormat("en-IN", {
     maximumFractionDigits: 2
   }).format(num);
 }
 
-// 🔒 Restrict principal input (numbers + dot only)
+// Restrict principal input
 principalInput.addEventListener("input", () => {
-  let raw = principalInput.value;
-
-  // Remove invalid characters
-  raw = raw.replace(/[^0-9.]/g, "");
-
-  // Prevent multiple dots
+  let raw = principalInput.value.replace(/[^0-9.]/g, "");
   const parts = raw.split(".");
-  if (parts.length > 2) {
-    raw = parts[0] + "." + parts.slice(1).join("");
-  }
-
-  if (raw === "") {
-    principalInput.value = "";
-    return;
-  }
-
-  const number = Number(raw);
-  if (!isNaN(number)) {
-    principalInput.value = formatINR(number);
-  }
+  if (parts.length > 2) raw = parts[0] + "." + parts.slice(1).join("");
+  if (raw !== "") principalInput.value = formatINR(Number(raw));
 });
+
+// ✅ CORRECT calendar month calculation
+function calculateMonths(start, end) {
+  let months =
+    (end.getFullYear() - start.getFullYear()) * 12 +
+    (end.getMonth() - start.getMonth());
+
+  if (end.getDate() < start.getDate()) {
+    months -= 1;
+  }
+
+  return months;
+}
 
 function calculate() {
   const principal = Number(principalInput.value.replace(/,/g, ""));
@@ -55,9 +52,9 @@ function calculate() {
 
   if (!principal || !rate || !start || !end || end <= start) return;
 
-  const months = (end - start) / (1000 * 60 * 60 * 24 * 30);
+  const months = calculateMonths(start, end);
 
-  let total, interest;
+  let interest, total;
 
   if (interestType === "simple") {
     interest = principal * (rate / 100) * months;
@@ -67,14 +64,9 @@ function calculate() {
     interest = total - principal;
   }
 
-  document.getElementById("duration").innerText =
-    months.toFixed(1) + " months";
-
-  document.getElementById("interest").innerText =
-    formatINR(interest);
-
-  document.getElementById("total").innerText =
-    formatINR(total);
+  document.getElementById("duration").innerText = months + " months";
+  document.getElementById("interest").innerText = formatINR(interest);
+  document.getElementById("total").innerText = formatINR(total);
 
   document.getElementById("resultBox").classList.remove("hidden");
 }
@@ -91,12 +83,7 @@ Duration: ${document.getElementById("duration").innerText}
 `;
 
   navigator.clipboard.writeText(text);
-
-  btn.classList.add("copied");
   btn.innerText = "✓ Copied";
 
-  setTimeout(() => {
-    btn.classList.remove("copied");
-    btn.innerText = "📋 Copy";
-  }, 1500);
+  setTimeout(() => (btn.innerText = "📋 Copy"), 1500);
 }

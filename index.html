@@ -11,34 +11,22 @@
 <div class="container">
   <h1>💸 Interest Calculator</h1>
 
-  <!-- Toggle -->
   <div class="toggle">
     <button id="simpleBtn" class="active">Simple</button>
     <button id="compoundBtn">Compound</button>
   </div>
 
-  <!-- Input Card -->
   <div class="card">
 
     <div class="row">
       <div class="field">
         <label>Principal Amount (₹)</label>
-        <input
-          type="text"
-          id="principal"
-          inputmode="decimal"
-          placeholder="Enter amount"
-        >
+        <input type="text" id="principal" placeholder="Enter amount">
       </div>
 
       <div class="field">
         <label>Interest % / Month</label>
-        <input
-          type="number"
-          id="rate"
-          step="0.01"
-          placeholder="Enter %"
-        >
+        <input type="number" id="rate" step="0.01" placeholder="Enter %">
       </div>
     </div>
 
@@ -57,16 +45,13 @@
     <button class="calculate" onclick="calculate()">Calculate</button>
   </div>
 
-  <!-- Result -->
   <div class="result hidden" id="resultBox">
     <p>Duration: <strong id="duration"></strong></p>
     <p>Interest: <strong>₹<span id="interest"></span></strong></p>
     <p class="total">Total Amount: ₹<span id="total"></span></p>
-
     <button class="copy" id="copyBtn" onclick="copyResult()">📋 Copy</button>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
     Built with ❤️ using GitHub Pages
   </footer>
