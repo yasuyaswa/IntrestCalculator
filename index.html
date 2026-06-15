@@ -2,61 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>💰 Interest Calculator</title>
+  <title>Interest Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <h1>💸 Interest Calculator</h1>
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
 
-  <div class="toggle">
-    <button id="simpleBtn" class="active">Simple</button>
-    <button id="compoundBtn">Compound</button>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-4H9l3-7 3 7h-2v4z" fill="currentColor"/>
+      </svg>
+    </div>
+    <h1>Interest Calculator</h1>
+    <p class="subtitle">Compute simple &amp; compound returns instantly</p>
+  </div>
+
+  <div class="toggle-pill">
+    <div class="pill-track" id="pillTrack"></div>
+    <button id="simpleBtn" class="pill-btn active">Simple</button>
+    <button id="compoundBtn" class="pill-btn">Compound</button>
   </div>
 
   <div class="card">
 
-    <div class="row">
-      <div class="field">
-        <label>Principal Amount (₹)</label>
-        <input type="text" id="principal" placeholder="Enter amount">
-      </div>
-
-      <div class="field">
-        <label>Interest % / Month</label>
-        <input type="number" id="rate" step="0.01" placeholder="Enter %">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="field">
-        <label>Start Date</label>
-        <input type="date" id="startDate">
-      </div>
-
-      <div class="field">
-        <label>End Date</label>
-        <input type="date" id="endDate">
+    <div class="field-group">
+      <label class="field-label" for="principal">
+        <span class="field-label-dot blue-dot"></span>
+        Principal Amount
+      </label>
+      <div class="field-wrap">
+        <span class="field-adornment left">₹</span>
+        <input type="text" id="principal" placeholder="0.00" autocomplete="off">
       </div>
     </div>
 
-    <button class="calculate" onclick="calculate()">Calculate</button>
+    <div class="field-group">
+      <label class="field-label" for="rate">
+        <span class="field-label-dot green-dot"></span>
+        Interest Rate
+      </label>
+      <div class="field-wrap">
+        <input type="number" id="rate" step="0.01" min="0" placeholder="0.00">
+        <span class="field-adornment right">% / mo</span>
+      </div>
+    </div>
+
+    <div class="date-grid">
+      <div class="field-group">
+        <label class="field-label" for="startDate">
+          <span class="field-label-dot purple-dot"></span>
+          Start Date
+        </label>
+        <div class="field-wrap">
+          <input type="date" id="startDate">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="endDate">
+          <span class="field-label-dot orange-dot"></span>
+          End Date
+        </label>
+        <div class="field-wrap">
+          <input type="date" id="endDate">
+        </div>
+      </div>
+    </div>
+
+    <button class="calc-btn" id="calcBtn" onclick="calculate()">
+      <span class="calc-btn-text">Calculate</span>
+      <svg class="calc-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
   </div>
 
   <div class="result hidden" id="resultBox">
-    <p>Duration: <strong id="duration"></strong></p>
-    <p>Interest: <strong>₹<span id="interest"></span></strong></p>
-    <p class="total">Total Amount: ₹<span id="total"></span></p>
-    <button class="copy" id="copyBtn" onclick="copyResult()">📋 Copy</button>
+    <p class="result-eyebrow">Results</p>
+    <div class="result-chips">
+      <div class="chip chip-blue">
+        <span class="chip-label">Duration</span>
+        <span class="chip-val" id="duration">—</span>
+      </div>
+      <div class="chip chip-cyan">
+        <span class="chip-label">Interest</span>
+        <span class="chip-val">₹<span id="interest">—</span></span>
+      </div>
+    </div>
+    <div class="result-total-box">
+      <span class="total-label">Total Amount</span>
+      <span class="total-amount">₹<span id="total">—</span></span>
+    </div>
+    <button class="copy-btn" id="copyBtn" onclick="copyResult()">
+      <svg id="copyIcon" width="15" height="15" viewBox="0 0 24 24" fill="none">
+        <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <span id="copyText">Copy Results</span>
+    </button>
   </div>
 
   <footer class="footer">
-    Built with ❤️ using GitHub Pages
+    Built with <span class="heart">&#10084;</span> &middot; Hosted on <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
   </footer>
+
 </div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
